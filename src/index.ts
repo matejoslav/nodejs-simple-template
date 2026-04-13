@@ -1,13 +1,14 @@
 import "dotenv/config";
 import "reflect-metadata";
-import express from "express";
-import weatherRoutes from "./routes/weather.routes";
+import express, { json } from "express";
+import { RegisterRoutes } from "./generated/routes";
 
 const app = express();
 const port = process.env.PORT ?? 3000;
 
-app.use(express.json());
-app.use("/api/weather", weatherRoutes);
+app.use(json());
+
+RegisterRoutes(app);
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
